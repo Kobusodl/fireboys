@@ -1368,3 +1368,51 @@ body.nav-open .nav-toggle span:nth-child(3) {
     transition: none;
   }
 }
+
+/* Mobile flip-card fix: iPhone/Safari can sometimes render both 3D faces during scroll.
+   On touch devices we show the image side cleanly instead of using a 3D flip. */
+.flip-card-front {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.flip-card-back {
+  -webkit-transform: rotateY(180deg);
+  z-index: 1;
+}
+
+@media (hover: none), (max-width: 760px) {
+  .sector-card.flip-card {
+    perspective: none;
+    cursor: default;
+    overflow: hidden;
+  }
+
+  .flip-card-inner,
+  .sector-card.flip-card:hover .flip-card-inner,
+  .sector-card.flip-card:focus-visible .flip-card-inner,
+  .sector-card.flip-card.is-flipped .flip-card-inner,
+  .sector-card.flip-card.auto-flipped .flip-card-inner {
+    min-height: 285px;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transform-style: flat;
+    transition: none;
+  }
+
+  .flip-card-front {
+    display: none;
+  }
+
+  .flip-card-back {
+    position: relative;
+    inset: auto;
+    min-height: 285px;
+    transform: none !important;
+    -webkit-transform: none !important;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    z-index: 1;
+  }
+}
